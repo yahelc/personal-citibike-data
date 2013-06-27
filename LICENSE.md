@@ -1,4 +1,3 @@
-
 <h3><em>License</em></h3>
 
 <p>THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS
@@ -331,34 +330,4 @@ in any communication from You. This License may not be
 modified without the mutual written agreement of the
 Licensor and You.</li>
 </ol>
-<!-- BREAKOUT FOR CC NOTICE.  NOT A PART OF THE LICENSE -->
-
-<blockquote>
-<h3>Creative Commons Notice</h3>
-
-<p>Creative Commons is not a party to this License, and
-makes no warranty whatsoever in connection with the Work.
-Creative Commons will not be liable to You or any party
-on any legal theory for any damages whatsoever, including
-without limitation any general, special, incidental or
-consequential damages arising in connection to this
-license. Notwithstanding the foregoing two (2) sentences,
-if Creative Commons has expressly identified itself as
-the Licensor hereunder, it shall have all rights and
-obligations of Licensor.</p>
-
-<p>Except for the limited purpose of indicating to the
-public that the Work is licensed under the CCPL, Creative
-Commons does not authorize the use by either party of the
-trademark "Creative Commons" or any related trademark or
-logo of Creative Commons without the prior written
-consent of Creative Commons. Any permitted use will be in
-compliance with Creative Commons' then-current trademark
-usage guidelines, as may be published on its website or
-otherwise made available upon request from time to time.
-For the avoidance of doubt, this trademark restriction
-does not form part of the License.</p>
-
-<p>Creative Commons may be contacted at <a href="http://creativecommons.org/">http://creativecommons.org/</a>.</p>
-</blockquote><!-- END CC NOTICE -->
 
