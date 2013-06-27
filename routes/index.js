@@ -11,9 +11,9 @@ exports.index = function(req, res){
 	  if (!error && response.statusCode == 200) {
 		var csrf = response.headers["set-cookie"][2].split("=")[1].split("; ")[0]; //y u no do smart
 		var po = request.post('https://citibikenyc.com/login', {form:
-			{'subscriberUsername': '',
+			{'subscriberUsername': process.env.CITIBIKE_USERNAME,
 			'login_submit':'Login',		
-			 "subscriberPassword": "",
+			 "subscriberPassword": process.env.CITIBIKE_PASSWORD,
 			"ci_csrf_token": csrf
 		}}, function(error, response, body){
 			var r = request("https://citibikenyc.com/member/trips", function (error, response, body){
