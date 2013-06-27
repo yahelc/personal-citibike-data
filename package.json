@@ -9,7 +9,7 @@
     "express": "3.3.0",
     "jade": "*",
 	"request":"*",
-	"htmlparser":"*"
+	"jquery":"*"
 
   }
 }
