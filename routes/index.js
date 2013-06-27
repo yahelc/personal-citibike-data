@@ -18,13 +18,17 @@ exports.index = function(req, res){
 		}}, function(error, response, body){
 			var r = request("https://citibikenyc.com/member/trips", function (error, response, body){
 				var json = [];
-				var keys = $("th", body).map(function(i,v){return $(v).html();}).get();
+				var keys = $("th", body).map(function(i,v){
+					return $(v).text().replace(/[^a-zA-Z\d\s]/g,"").trim().replace(/ /g,"_").toLowerCase();
+					}).get();
 				$("tr", body).each(function(i,val){
 					var trip = {};
 					$("td", $(val, body)).each(function(k,v){
 						trip[ keys[k]  ] = $(v).text();
-						})
-					json.push(trip);
+					});
+					if(Object.keys(trip).length){
+						json.push(trip);
+					}
 				});
 				
 			 res.json(json);
@@ -37,7 +41,7 @@ exports.index = function(req, res){
 	//	console.log(po);
 
 	  }
-	})
+	});
 	
 /*	
 */
