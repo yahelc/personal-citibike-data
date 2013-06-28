@@ -1,22 +1,19 @@
 
 /*
- * GET home page.
+ * GET Ride information.
  */
 
 exports.index = function(req, res){
 	var request = require('request');
 	var $ = require("jquery");
-	
-	request('https://citibikenyc.com/login', function (error, response, body) {
-	  if (!error && response.statusCode == 200) {
-		var csrf = response.headers["set-cookie"][2].split("=")[1].split("; ")[0]; //y u no do smart
-		var po = request.post('https://citibikenyc.com/login', {form:
-			{'subscriberUsername': process.env.CITIBIKE_USERNAME,
-			'login_submit':'Login',		
-			 "subscriberPassword": process.env.CITIBIKE_PASSWORD,
-			"ci_csrf_token": csrf
-		}}, function(error, response, body){
-			var r = request("https://citibikenyc.com/member/trips", function (error, response, body){
+	var cookie = require("cookie");
+	var attempts = 0;
+	function getTrips(){
+		
+		var r = request("https://citibikenyc.com/member/trips", function (error, response, body){
+			if(++attempts > 2){
+			return res.json({"error": "too many unsuccessful login attempts"}); }
+			if($("table",body).length){ 
 				var json = [];
 				var keys = $("th", body).map(function(i,v){
 					return $(v).text().replace(/[^a-zA-Z\d\s]/g,"").trim().replace(/ /g,"_").toLowerCase();
@@ -30,20 +27,26 @@ exports.index = function(req, res){
 						json.push(trip);
 					}
 				});
-				
 			 res.json(json);
-				
-				
-			});
-			console.log(r);
-		}
-			);
-	//	console.log(po);
-
-	  }
-	});
-	
-/*	
-*/
- // res.render('index', { title: 'Express' });
+			}
+			else{
+				try{
+					var cookies = cookie.parse(response.headers["set-cookie"].reverse().join("; "));
+					var csrf = cookies.ci_csrf_token; 
+					var po = request.post('https://citibikenyc.com/login', {form:
+						{'subscriberUsername': process.env.CITIBIKE_USERNAME,
+						'login_submit':'Login',		
+						 "subscriberPassword": process.env.CITIBIKE_PASSWORD,
+						"ci_csrf_token": csrf
+					}}, function(error, response, body){  
+						getTrips();
+					});
+				}
+				catch(e){
+					res.json({"error":"couldn't login"});
+				}
+			}
+		});
+	}
+	getTrips();
 };
